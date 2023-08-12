@@ -15,4 +15,5 @@ jobs:
         username: ${{ secrets.FTP_HOST }}
         password:  ${{ secrets.FTP_PW }}
         server-dir: "web/ffnn/"
+        protocol: ftps
         port: 23
