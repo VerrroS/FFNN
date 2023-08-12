@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TensorFlow.js Tutorial</title>
+
+  <!-- Import TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  <!-- Import tfjs-vis -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+  <!-- Import Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js" charset="utf-8"></script>
+  <!-- add style sheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="index">
+        <header class="nav-nav-header">
+          <div class="title">
+            <h1 class="regression-with-ffnn">Regression with FFNN</h1>
+          </div>
+          <a href="/Documentation.html">
+            <button>
+              <div class="label">Dokumentation</div>
+            </button>
+          </a>
+        </header>
+        <div class="training">
+          <div class="title2">
+            <div class="heading-5">
+              <h1 class="heading-1">Training Model</h1>
+            </div>
+          </div>
+          <div class="input-training">
+            <div class="title3">
+              <h2 class="heading-2">Trainingsdaten</h2>
+            </div>
+            <div class="trainingsdaten">
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Anzahl der Trainingsdaten</p>
+                </div>
+                  <select id="inputN">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50" selected>50</option>
+                    <option value="100">100</option>
+                    <option value="100">1000</option>
+                </select>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Rauschen</p>
+                </div>
+                <div class="input-slider">
+                    <input type="range" min="0" max="3" value="2" class="slider" id="inputVariance">
+                    <p id="varianceLabel">0.2</p>
+                </div>
+              </div>
+            </div>
+            <div class="diagram">
+                <div id="noisy-plot"></div>
+            </div>
+            <div class="heading-4">
+              <h2 class="heading-2">Parameter</h2>
+            </div>
+            <div class="frame-4">
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Anzahl der Hiden Layer</p>
+                </div>
+                <div class="input-slider">
+                    <input type="number" id="hiddenLayers" name="hiddenLayers" min="1" value="1">
+                </div>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Anzahl der Neuronen</p>
+                </div>
+                <div class="input-slider">
+                    <input type="number" id="neurons" name="neurons" min="1" value="10">
+                </div>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Aktivierungsfunktion</p>
+                </div>
+                <div class="input-dropdown">
+                  <select id="aktivierungsfunktionInput">
+                    <option value="relu">relu</option>
+                    <option value="sigmoid">sigmoid</option>
+                    <option value="tanh">tanh</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Lernrate</p>
+                </div>
+                  <select id="learningRateInput">
+                      <option value="0.00001">0.00001</option>
+                      <option value="0.0001">0.0001</option>
+                      <option value="0.001"selected>0.001</option>
+                      <option value="0.01" >0.01</option>
+                      <option value="0.1">0.1</option>
+                  </select>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Optimizer</p>
+                </div>
+                <select id="optimizerInput">
+                  <option value="sgd">sgd</option>
+                  <option value="momentum">momentum</option>
+                  <option value="adagrad">adagrad</option>
+                  <option value="adadelta">adadelta</option>
+                  <option value="adam" selected>adam</option>
+                  <option value="adamax">adamax</option>
+                  <option value="rmsprop">rmsprop</option>
+                </select>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Batchsize</p>
+                </div>
+                <div class="input-slider">
+                    <input type="range" min="10" max="500" value="32" id="batchSizeInput">
+                    <p id="batchSizeLabel">32</p>
+                </div>
+              </div>
+              <div class="input-input-item">
+                <div class="input-label">
+                  <p class="text">Anzahl der Trainings Epochs</p>
+                </div>
+                <div class="input-slider">
+                    <input type="range" min="10" max="300" value="50" id="epochsInput">
+                    <p id="epochsLabel">50</p>
+                </div>
+              </div>
+            </div>
+            <button onclick="initializeModel()">
+              <div class="label">Train</div>
+            </button>
+          </div>
+          <div class="fitting-slider">
+            <div class="fitting-slider-labels">
+              <div class="text-primary">
+                <p class="text">Over-Fitting</p>
+              </div>
+              <div class="text-primary">
+                <p class="text">Best-Fitting</p>
+              </div>
+              <div class="text-primary">
+                <p class="text">Under-Fitting</p>
+              </div>
+            </div>
+            <div class="fitting-slider2"></div>
+          </div>
+        </div>
+        <div class="test">
+          <div class="sektion-titel">
+            <div class="heading-6">
+              <h1 class="heading-12">Test Model</h1>
+            </div>
+          </div>
+          <div class="frame-7">
+            <div class="text-heading-2">
+              <h2 class="heading-22">Vortrainierte Modelle</h2>
+            </div>
+            <div class="text-heading-22">
+              <h2 class="heading-22">Eigenes Modell</h2>
+            </div>
+          </div>
+          <div class="frame-1">
+            <button value="over-fitting" id="overFittingButton">
+              <div class="label" >Over-Fitting</div></button
+            ><button value="best-fitting" id="bestFittingButton">
+              <div class="label">Best-Fitting</div></button
+            ><button value="under-fitting" id="underFittingButton">
+              <div class="label">Under-Fitting</div></button
+            ><button id="meinModellButton" disabled value="mein-model">
+              <div class="label">Mein Modell</div>
+            </button>
+          </div>
+          <div id="testPlot"></div>
+        </div>
+      </main>
+<!-- Import the main script file -->
+<script src="visual.js"></script>
+<script src="functions.js"></script>
+<script src="main.js"></script>
+      
+</body>
+</html>
+
+  
