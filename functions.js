@@ -48,7 +48,7 @@ async function runFFNN(){
 
     // Make some predictions using the model and compare them to the
     // original data
-    testModel(model);
+    //testModel(model);
 }
 
 
@@ -166,6 +166,8 @@ async function trainModel(model, inputs, labels) {
 }
 
   function testModel(model) {
+    const data = generateData();
+    const tensorData = convertToTensor(data);
     const {inputMax, inputMin, labelMin, labelMax} = tensorData;
   
     // Generate predictions for a uniform range of numbers between 0 and 1;

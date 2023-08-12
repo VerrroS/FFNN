@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TensorFlow.js Tutorial</title>
+  <title>Regression with FFNN</title>
 
   <!-- Import TensorFlow.js -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
@@ -16,7 +16,7 @@
     <main class="index">
         <header class="nav-nav-header">
           <div class="title">
-            <h1 class="regression-with-ffnn">Regression with FFNN</h1>
+            <h1 class="regression-with-ffnn">Regression with Fast Foward Neural Network (FFNN)</h1>
           </div>
           <a href="/Documentation.html">
             <button>
@@ -142,7 +142,7 @@
               <div class="label">Train</div>
             </button>
           </div>
-          <div class="fitting-slider">
+          <!-- <div class="fitting-slider">
             <div class="fitting-slider-labels">
               <div class="text-primary">
                 <p class="text">Over-Fitting</p>
@@ -155,7 +155,7 @@
               </div>
             </div>
             <div class="fitting-slider2"></div>
-          </div>
+          </div> -->
         </div>
         <div class="test">
           <div class="sektion-titel">
@@ -172,15 +172,10 @@
             </div>
           </div>
           <div class="frame-1">
-            <button value="over-fitting" id="overFittingButton">
-              <div class="label" >Over-Fitting</div></button
-            ><button value="best-fitting" id="bestFittingButton">
-              <div class="label">Best-Fitting</div></button
-            ><button value="under-fitting" id="underFittingButton">
-              <div class="label">Under-Fitting</div></button
-            ><button id="meinModellButton" disabled value="mein-model">
-              <div class="label">Mein Modell</div>
-            </button>
+            <button value="over-fitting" id="overFittingButton">Over-Fitting</button
+            ><button value="best-fitting" id="bestFittingButton">Best-Fitting</button
+            ><button value="under-fitting" id="underFittingButton">Under-Fitting</button
+            ><button id="meinModellButton" disabled value="mein-model">Mein Modell</button>
           </div>
           <div id="testPlot"></div>
         </div>

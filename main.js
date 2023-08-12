@@ -36,25 +36,26 @@ async function saveModelToServer(model) {
 }
 
 
-function testCurrentModel(){
-    //getCurrentModel(meinModellButton.value).then(currentModel => {
-    //    testModel(currentModel);
-    //});
-    console.log(currentModel);
-    testModel(currentModel);
+function testCurrentModel(e){
+    console.log(e.target.value);
+    getCurrentModel(e.target.value).then(currentModel => {
+        console.log(currentModel);
+        testModel(currentModel);
+    });
 }
 
 async function getCurrentModel(switchCase){
     let model;
-    switch (switchCase) {
+    switch (switchCase) {   
         case 'mein-modell':
-            model = null;
+            model = currentModel;
             break;
         case 'over-fitting':
             model = null;
             break;
         case 'under-fitting':
-            model = null;
+            console.log("loading underfitting model");
+            model = await tf.loadLayersModel("models/underfitting/my-model.json")
             break;
         case 'best-fitting':
             model = null;
