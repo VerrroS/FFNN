@@ -16,7 +16,7 @@
     <main class="index">
         <header class="nav-nav-header">
           <div class="title">
-            <h1 class="regression-with-ffnn">Regression with Fast Foward Neural Network (FFNN)</h1>
+            <h1>Regression with Fast Foward Neural Network (FFNN)</h1>
           </div>
           <a href="/Documentation.html">
             <button>
@@ -27,12 +27,12 @@
         <div class="training">
           <div class="title2">
             <div class="heading-5">
-              <h1 class="heading-1">Training Model</h1>
+              <h1 >Training Model</h1>
             </div>
           </div>
           <div class="input-training">
             <div class="title3">
-              <h2 class="heading-2">Trainingsdaten</h2>
+              <h2>Trainingsdaten</h2>
             </div>
             <div class="trainingsdaten">
               <div class="input-input-item">
@@ -52,10 +52,11 @@
                 <div class="input-label">
                   <p class="text">Rauschen</p>
                 </div>
-                <div class="input-slider">
-                    <input type="range" min="0" max="3" value="2" class="slider" id="inputVariance">
-                    <p id="varianceLabel">0.2</p>
-                </div>
+                <select id="inputVariance">
+                  <option value="0">0</option>
+                  <option value="0.01" selected>0.01</option>
+                  <option value="0.03">0.03</option>
+              </select>
               </div>
             </div>
             <div class="diagram">
@@ -142,20 +143,6 @@
               <div class="label">Train</div>
             </button>
           </div>
-          <!-- <div class="fitting-slider">
-            <div class="fitting-slider-labels">
-              <div class="text-primary">
-                <p class="text">Over-Fitting</p>
-              </div>
-              <div class="text-primary">
-                <p class="text">Best-Fitting</p>
-              </div>
-              <div class="text-primary">
-                <p class="text">Under-Fitting</p>
-              </div>
-            </div>
-            <div class="fitting-slider2"></div>
-          </div> -->
         </div>
         <div class="test">
           <div class="sektion-titel">
@@ -163,19 +150,11 @@
               <h1 class="heading-12">Test Model</h1>
             </div>
           </div>
-          <div class="frame-7">
-            <div class="text-heading-2">
-              <h2 class="heading-22">Vortrainierte Modelle</h2>
-            </div>
-            <div class="text-heading-22">
-              <h2 class="heading-22">Eigenes Modell</h2>
-            </div>
-          </div>
-          <div class="frame-1">
-            <button value="over-fitting" id="overFittingButton">Over-Fitting</button
-            ><button value="best-fitting" id="bestFittingButton">Best-Fitting</button
-            ><button value="under-fitting" id="underFittingButton">Under-Fitting</button
-            ><button id="meinModellButton" disabled value="mein-model">Mein Modell</button>
+          <div id="model-buttons">
+            <button value="over-fitting" id="overFittingButton">Over-Fitting</button>
+            <button value="best-fitting" id="bestFittingButton">Best-Fitting</button>
+            <button value="under-fitting" id="underFittingButton">Under-Fitting</button>
+            <button id="my-model" disabled value="my-model">Mein Modell</button>
           </div>
           <div id="testPlot"></div>
         </div>

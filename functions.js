@@ -10,7 +10,7 @@ function generatePlot(data)
 
   const noisyData = [noisyTrace];
   const noisyLayout = {
-    title: 'verrauschte Daten',
+    title: 'Trainingsdaten',
     xaxis: { title: 'x' },
     yaxis: { title: 'y' }
   };
@@ -44,11 +44,14 @@ async function runFFNN(){
 
     // Train the model
     await trainModel(model, inputs, labels);
-    saveModel(model);
-
+    saveModelToServer(model);
     // Make some predictions using the model and compare them to the
     // original data
-    //testModel(model);
+    testModel(model, data);
+    for (let i = 0; i < modelButtons.length; i++) {
+        modelButtons[i].classList.remove('active');
+    }
+    meinModellButton.classList.add('active');
 }
 
 
@@ -69,11 +72,6 @@ function createModel(numHiddenLayers, neuronsPerLayer) {
   model.add(tf.layers.dense({units: 1, useBias: true}));
 
   return model;
-}
-
-async function saveModel(model) {
-  await model.save('localstorage://my-model');
-  console.log('Model saved');
 }
 
 
@@ -165,8 +163,7 @@ async function trainModel(model, inputs, labels) {
   });
 }
 
-  function testModel(model) {
-    const data = generateData();
+  function testModel(model, data) {
     const tensorData = convertToTensor(data);
     const {inputMax, inputMin, labelMin, labelMax} = tensorData;
   
@@ -229,7 +226,7 @@ async function trainModel(model, inputs, labels) {
 
 function generateData(){
     const N = document.getElementById('inputN').value; // Anzahl der zufälligen x-Werte
-    const variance = document.getElementById('inputVariance').value/500;
+    const variance = document.getElementById('inputVariance').value;
     const data = [];
     for (let i = 0; i < N; i++) {
         x = Math.random() * 2 - 1;
