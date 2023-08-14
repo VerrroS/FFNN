@@ -145,34 +145,54 @@
         </div>
         <div class="test">
           <div class="sektion-titel">
-            <div class="heading-6">
+
               <h1 class="heading-12">Test Model</h1>
             </div>
           </div>
-          <div>
-          <div id="model-buttons">
-            <button value="over-fitting" id="overFittingButton">Over-Fitting</button>
-            <button value="best-fitting" id="bestFittingButton">Best-Fitting</button>
-            <button value="under-fitting" id="underFittingButton">Under-Fitting</button>
-            <button id="my-model" disabled value="my-model">Mein Modell</button>
-          </div>
-          <div id="testPlot"></div>
-          </div>
-          <div>
-            <div class="info" id="over-fitting">
-              <h2>Over Fitting Beispiel</h2></div>
-            <div class="info" id="best-fitting">
-              <h2>Best Fitting Beispiel</h2></div>
-            <div class="info" id="under-fitting">
-              <h2>Under Fitting Beispiel</h2>
-              <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+          <div class="flex">
+            <div>
+            <div id="model-buttons">
+              <button value="over-fitting" id="overFittingButton">Over-Fitting</button>
+              <button value="best-fitting" id="bestFittingButton">Best-Fitting</button>
+              <button value="under-fitting" id="underFittingButton">Under-Fitting</button>
+              <button id="my-model" disabled value="my-model">Mein Modell</button>
+            </div>
+            <div id="testPlot"></div>
+            </div>
+            <div id="info-box">
+              <div class="info" id="over-fitting">
+                <h2>Over Fitting Beispiel</h2>
+                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
 
-              <h3>Bias</h3>
-              <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+                <h3>Bias</h3>
+                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
 
-              <h3>Variance</h3>
-              <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+                <h3>Variance</h3>
+                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
 
+              </div>
+              <div class="info" id="best-fitting">
+                <h2>Best Fitting Beispiel</h2>
+                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+
+                <h3>Bias</h3>
+                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+
+                <h3>Variance</h3>
+                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+
+              </div>
+              <div class="info" id="under-fitting">
+                <h2>Under Fitting Beispiel</h2>
+                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+
+                <h3>Bias</h3>
+                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+
+                <h3>Variance</h3>
+                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+
+              </div>
             </div>
           </div>
         </div>

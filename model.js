@@ -34,6 +34,7 @@ async function runFFNN(){
         modelButtons[i].classList.remove('selected');
     }
     meinModellButton.classList.add('selected');
+    document.getElementById('info-box').style.display = 'none';
 }
 
 
@@ -178,7 +179,8 @@ function testModel(model, data) {
 
     switch (switchCase) {   
         case 'my-model':
-            model = currentModel;
+            model = trainedModel;
+            document.getElementById('info-box').style.display = 'none';
             break;
         case 'over-fitting':
             model = await tf.loadLayersModel("models/overfitting/my-model.json");
@@ -220,6 +222,7 @@ function initializeModel() {
   const numHiddenLayers = parseInt(document.getElementById('hiddenLayers').value);
   const neuronsPerLayer = parseInt(document.getElementById('neurons').value);
   const model = createModel(numHiddenLayers, neuronsPerLayer);
+  trainedModel = model;
   currentModel = model;
   meinModellButton.disabled = false;
   data = generateData();

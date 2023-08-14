@@ -58,6 +58,7 @@ function showParameters(parameters){
 }
 
 function showModelInfo(model){
+  document.getElementById('info-box').style.display = 'block';
   info.forEach(element => {
     if(element.id === model){
       element.style.display = 'block';

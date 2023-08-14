@@ -3,6 +3,7 @@ const inputN = document.getElementById('inputN');
 const epochs = document.getElementById('epochsInput');
 const batchSize = document.getElementById('batchSizeInput');
 var currentModel = null;
+var trainedModel = null;
 var data = null;
 var tensorData = null;
 
