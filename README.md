@@ -15,7 +15,7 @@ The parameters you can specify are:
 - [Tenorflow Linear Regression Tutorial](https://www.tensorflow.org/js/tutorials/training/linear_regression)
 
 ## Testing the model
-The model was tested empirically. 
+The model was tested empirically. Thereby an under-fitting model, an over-fitting model and a best-fitting model were defined. They and their parameters can be viewed in the test section of the web application.
 
 
 
