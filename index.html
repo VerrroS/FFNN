@@ -20,7 +20,7 @@
           </div>
           <a href="/Documentation.html">
             <button>
-              <div class="label">Dokumentation</div>
+              <div>Dokumentation</div>
             </button>
           </a>
         </header>
@@ -30,118 +30,117 @@
               <h1 >Training Model</h1>
             </div>
           </div>
-          <div class="input-training">
-            <div class="title3">
-              <h2>Trainingsdaten</h2>
-            </div>
-            <div class="trainingsdaten">
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Anzahl der Trainingsdaten</p>
-                </div>
-                  <select id="inputN">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50" selected>50</option>
-                    <option value="100">100</option>
-                    <option value="100">1000</option>
-                </select>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Rauschen</p>
-                </div>
-                <select id="inputVariance">
-                  <option value="0">0</option>
-                  <option value="0.01" selected>0.01</option>
-                  <option value="0.03">0.03</option>
-              </select>
-              </div>
-            </div>
-            <div class="diagram">
-                <div id="noisy-plot"></div>
-            </div>
-            <div class="heading-4">
-              <h2 class="heading-2">Parameter</h2>
-            </div>
-            <div class="frame-4">
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Anzahl der Hiden Layer</p>
-                </div>
-                <div class="input-slider">
-                    <input type="number" id="hiddenLayers" name="hiddenLayers" min="1" value="1">
-                </div>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Anzahl der Neuronen</p>
-                </div>
-                <div class="input-slider">
-                    <input type="number" id="neurons" name="neurons" min="1" value="10">
-                </div>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Aktivierungsfunktion</p>
-                </div>
-                <div class="input-dropdown">
-                  <select id="aktivierungsfunktionInput">
-                    <option value="relu">relu</option>
-                    <option value="sigmoid">sigmoid</option>
-                    <option value="tanh">tanh</option>
+          <div class="training-inner">
+            <div class="input-training">
+                <h2>Trainingsdaten</h2>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Anzahl der Trainingsdaten</p>
+                  </div>
+                    <select id="inputN">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50" selected>50</option>
+                      <option value="100">100</option>
+                      <option value="100">1000</option>
                   </select>
                 </div>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Lernrate</p>
-                </div>
-                  <select id="learningRateInput">
-                      <option value="0.00001">0.00001</option>
-                      <option value="0.0001">0.0001</option>
-                      <option value="0.001"selected>0.001</option>
-                      <option value="0.01" >0.01</option>
-                      <option value="0.1">0.1</option>
-                  </select>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Optimizer</p>
-                </div>
-                <select id="optimizerInput">
-                  <option value="sgd">sgd</option>
-                  <option value="momentum">momentum</option>
-                  <option value="adagrad">adagrad</option>
-                  <option value="adadelta">adadelta</option>
-                  <option value="adam" selected>adam</option>
-                  <option value="adamax">adamax</option>
-                  <option value="rmsprop">rmsprop</option>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Rauschen</p>
+                  </div>
+                  <select id="inputVariance">
+                    <option value="0">0</option>
+                    <option value="0.001">0.001</option>
+                    <option value="0.01" selected>0.01</option>
+                    <option value="0.03">0.03</option>
                 </select>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Batchsize</p>
                 </div>
-                <div class="input-slider">
-                    <input type="range" min="10" max="500" value="32" id="batchSizeInput">
-                    <p id="batchSizeLabel">32</p>
-                </div>
-              </div>
-              <div class="input-input-item">
-                <div class="input-label">
-                  <p class="text">Anzahl der Trainings Epochs</p>
-                </div>
-                <div class="input-slider">
-                    <input type="range" min="10" max="300" value="50" id="epochsInput">
-                    <p id="epochsLabel">50</p>
-                </div>
+              <div class="diagram">
+                  <div id="noisy-plot"></div>
               </div>
             </div>
-            <button onclick="initializeModel()">
-              <div class="label">Train</div>
-            </button>
+            <div class="parameter">
+              <h2>Model Parameter</h2>
+              <div class="frame-4">
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Anzahl der Hiden Layer</p>
+                  </div>
+                  <div class="input-slider">
+                      <input type="number" id="hiddenLayers" name="hiddenLayers" min="1" value="1">
+                  </div>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Anzahl der Neuronen</p>
+                  </div>
+                  <div class="input-slider">
+                      <input type="number" id="neurons" name="neurons" min="1" value="10">
+                  </div>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Aktivierungsfunktion</p>
+                  </div>
+                  <div class="input-dropdown">
+                    <select id="aktivierungsfunktionInput">
+                      <option value="relu">relu</option>
+                      <option value="sigmoid">sigmoid</option>
+                      <option value="tanh">tanh</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Lernrate</p>
+                  </div>
+                    <select id="learningRateInput">
+                        <option value="0.00001">0.00001</option>
+                        <option value="0.0001">0.0001</option>
+                        <option value="0.001"selected>0.001</option>
+                        <option value="0.01" >0.01</option>
+                        <option value="0.1">0.1</option>
+                    </select>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Optimizer</p>
+                  </div>
+                  <select id="optimizerInput">
+                    <option value="sgd">sgd</option>
+                    <option value="momentum">momentum</option>
+                    <option value="adagrad">adagrad</option>
+                    <option value="adadelta">adadelta</option>
+                    <option value="adam" selected>adam</option>
+                    <option value="adamax">adamax</option>
+                    <option value="rmsprop">rmsprop</option>
+                  </select>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Batchsize</p>
+                  </div>
+                  <div class="input-slider">
+                      <input type="range" min="10" max="500" value="32" id="batchSizeInput">
+                      <p id="batchSizeLabel">32</p>
+                  </div>
+                </div>
+                <div class="input-input-item">
+                  <div class="input-label">
+                    <p>Anzahl der Trainings Epochs</p>
+                  </div>
+                  <div class="input-slider">
+                      <input type="range" min="10" max="300" value="50" id="epochsInput">
+                      <p id="epochsLabel">50</p>
+                  </div>
+                </div>
+              </div>
+              <button onclick="initializeModel()">
+                <div>Train</div>
+              </button>
+            </div>
           </div>
         </div>
         <div class="test">
@@ -150,6 +149,7 @@
               <h1 class="heading-12">Test Model</h1>
             </div>
           </div>
+          <div>
           <div id="model-buttons">
             <button value="over-fitting" id="overFittingButton">Over-Fitting</button>
             <button value="best-fitting" id="bestFittingButton">Best-Fitting</button>
@@ -157,11 +157,30 @@
             <button id="my-model" disabled value="my-model">Mein Modell</button>
           </div>
           <div id="testPlot"></div>
+          </div>
+          <div>
+            <div class="info" id="over-fitting">
+              <h2>Over Fitting Beispiel</h2></div>
+            <div class="info" id="best-fitting">
+              <h2>Best Fitting Beispiel</h2></div>
+            <div class="info" id="under-fitting">
+              <h2>Under Fitting Beispiel</h2>
+              <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+
+              <h3>Bias</h3>
+              <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+
+              <h3>Variance</h3>
+              <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+
+            </div>
+          </div>
         </div>
       </main>
 <!-- Import the main script file -->
 <script src="visual.js"></script>
-<script src="functions.js"></script>
+<script src="model.js"></script>
+<script src="data.js"></script>
 <script src="main.js"></script>
       
 </body>

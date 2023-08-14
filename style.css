@@ -1,3 +1,10 @@
+body{
+    color:#000;
+    text-align:left;
+    font:400 16px Inter,sans-serif;
+    position:relative
+}
+
 .index,.index *{
   box-sizing:border-box
 }
@@ -51,9 +58,10 @@ button{
   justify-content:center;
   flex-shrink:0;
   position:relative;
-  border:none
+  border:none;
+  margin: auto;
 }
-.active{
+.selected{
   outline: #ff8419 solid 5px!important;
 }
 
@@ -62,12 +70,6 @@ a{
 }
 button:disabled{
   background:#c5d5ff
-}
-.label{
-  color:#000;
-  text-align:center;
-  font:400 16px Inter,sans-serif;
-  position:relative
 }
 .training{
   margin:-1px 0 0 0;
@@ -111,9 +113,7 @@ button:disabled{
 .input-training{
   display:flex;
   flex-direction:column;
-  gap:23px;
-  align-items:center;
-  justify-content:center;
+  gap:5px;
   flex-shrink:0;
   position:relative
 }
@@ -134,22 +134,16 @@ button:disabled{
   position:relative;
   flex:1
 }
-.trainingsdaten{
+.training-inner{
   display:flex;
-  flex-direction:column;
-  gap:9px;
-  align-items:flex-start;
-  justify-content:flex-start;
-  flex-shrink:0;
-  position:relative
+  flex-direction:row;
+  gap:30px;
 }
 .input-input-item{
-  padding:0 0 0 15px;
   display:flex;
   flex-direction:row;
   gap:29px;
   align-items:center;
-  justify-content:center;
   flex-shrink:0;
   position:relative
 }
@@ -167,12 +161,6 @@ button:disabled{
   justify-content:flex-start;
   flex-shrink:0;
   width:177px;
-  position:relative
-}
-.text{
-  color:#000;
-  text-align:left;
-  font:400 14px Inter,sans-serif;
   position:relative
 }
 .input-slider{
@@ -202,7 +190,7 @@ button:disabled{
   display:flex;
   flex-direction:column;
   gap:15px;
-  align-items:flex-end;
+  align-items:baseline;
   justify-content:flex-start;
   flex-shrink:0;
   position:relative
@@ -319,4 +307,7 @@ h2{
   flex-shrink:0;
   width:837px;
   position:relative
+}
+.info{
+  display:none;
 }

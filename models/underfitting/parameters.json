@@ -1,1 +1,1 @@
-{"hiddenLayers":13,"neuronsPerLayer":32,"activationFunction":"relu","inputVariance":0.01,"inputN":100,"epochs":152,"batchSize":32,"optimizer":"adam","lerningRate":0.001}
+{"hiddenLayers":2,"neuronsPerLayer":5,"activationFunction":"relu","inputVariance":0.03,"inputN":100,"epochs":152,"batchSize":32,"optimizer":"adam","lerningRate":0.001}
