@@ -162,35 +162,71 @@
             <div id="info-box">
               <div class="info" id="over-fitting">
                 <h2>Over Fitting Beispiel</h2>
-                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+                <p>
+                  Overfitting tritt auf, wenn ein Modell zu komplex ist und versucht, jedes kleine Detail und Rauschen in den Trainingsdaten zu lernen. 
+                  In diesem Fall wurde ein übermäßig komplexes Modell mit 15 versteckten Schichten und 150 Neuronen gewählt. Wegen seiner hohen Komplexität 
+                  hat dieses Modell die Fähigkeit, jedes Detail der Trainingsdaten zu lernen, einschließlich des Rauschens. Das Ergebnis ist eine hervorragende 
+                  Leistung auf den Trainingsdaten, aber eine schlechte Generalisierung auf neuen, unbekannten Daten.
+                </p>
 
                 <h3>Bias</h3>
-                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+                <p>
+                  Im Kontext von Overfitting ist das Bias oft niedrig, da das Modell in der Lage ist, die Trainingsdaten sehr genau zu lernen. 
+                  Das Problem ist jedoch, dass es möglicherweise zu genau lernt und das Rauschen oder die Unregelmäßigkeiten in den Trainingsdaten 
+                  als tatsächliche Muster interpretiert. In dem Beispiel hat das komplexe Modell ein niedriges Bias, da es die Trainingsdaten fast perfekt lernt.
+                </p>
 
                 <h3>Variance</h3>
-                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+                <p>
+                  Variance ist bei Overfitting oft hoch. Das Modell reagiert übermäßig auf kleine Fluktuationen oder Rauschen in den Trainingsdaten. 
+                  Ein Modell mit hoher Variance ist sehr empfindlich gegenüber den spezifischen Daten, auf denen es trainiert wurde, und kann daher 
+                  Schwierigkeiten haben, auf neuen Daten zu generalisieren. In dem Beispiel hat das komplexe Modell eine hohe Variance, da es zu 
+                  genau auf die Trainingsdaten trainiert und nicht gut auf neuen Daten generalisiert.
+                </p>
 
               </div>
               <div class="info" id="best-fitting">
                 <h2>Best Fitting Beispiel</h2>
-                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+                <p>
+                  Das Model ist best-fitting, wenn es die richtige Balance zwischen Bias und Variance findet und in der Lage ist, die zugrunde 
+                  liegende Struktur der Daten genau zu erfassen, ohne zu sehr auf die spezifischen Nuancen der Trainingsdaten zu reagieren. In diesem 
+                  Fall wurde ein ausgewogenes Modell gewählt, das weder zu einfach noch zu komplex ist. Mit 13 versteckten Schichten und 32 Neuronen 
+                  hat es die richtige Kapazität, um die Datenmuster korrekt zu lernen und zu generalisieren, ohne zu overfitten oder underfitten.  
+                </p>
 
                 <h3>Bias</h3>
-                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+                <p>
+                  Bei einem best fitting Modell ist das Bias niedrig, 
+                  da das Modell in der Lage ist, die tatsächliche Komplexität der Daten genau zu erfassen. Es macht angemessene Annahmen und kann die Datenstruktur korrekt abbilden.  
+                </p>
 
                 <h3>Variance</h3>
-                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+                <p>
+                  Bei einem best fitting Modell ist die Variance ebenfalls niedrig, da das Modell nicht zu empfindlich auf die spezifischen Nuancen der Trainingsdaten reagiert. 
+                  Es lernt die allgemeinen Muster und Trends der Daten, ohne von verrauschten oder abweichenden Datenpunkten beeinflusst zu werden. Das Ergebnis ist eine konsistente und genaue Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.
+                </p>
 
               </div>
               <div class="info" id="under-fitting">
                 <h2>Under Fitting Beispiel</h2>
-                <p>Underfitting tritt auf, wenn ein Modell nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
+                <p>
+                  Ein Modell ist under-fitted,wenn es nicht komplex genug ist, um die zugrunde liegende Struktur der Daten zu erfassen. 
+                  In diesem Fall wurde ein einfaches Modell mit nur 2 versteckten Schichten und 5 Neuronen gewählt. Angesichts der hohen Verrauschung 
+                  und Komplexität der Daten ist dieses Modell nicht in der Lage, die Datenmuster korrekt zu lernen und zu generalisieren. Das Ergebnis 
+                  ist eine schlechte Leistung sowohl auf den Trainingsdaten als auch auf neuen, unbekannten Daten.</p>
 
                 <h3>Bias</h3>
-                <p>Bias bezieht sich auf den Fehler, der durch Annahmen im Lernalgorithmus entsteht. Ein hohes Bias bedeutet, dass das Modell zu einfache Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. In unserem Beispiel hat das einfache Modell ein hohes Bias, da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
+                <p>Ein hohes Bias bedeutet, dass das Modell zu einfache 
+                  Annahmen über die Datenstruktur trifft und dadurch systematisch falsch liegt. Das under fitting Modell hat ein hohes Bias, 
+                  da es nicht in der Lage ist, die tatsächliche Komplexität der Daten zu erfassen. Es macht zu vereinfachte Annahmen und kann daher die Daten nicht genau abbilden.</p>
 
                 <h3>Variance</h3>
-                <p>Variance bezieht sich auf den Fehler, der durch kleine Fluktuationen in den Trainingsdaten entsteht. Ein Modell mit hoher Variance reagiert stark auf die Nuancen (einschließlich des Rauschens) in den Trainingsdaten, was zu einer Überanpassung führen kann. In diesem Beispiel, obwohl das Modell underfitted ist, könnte ein komplexeres Modell, das zu genau auf die verrauschten Daten trainiert wird, eine hohe Variance aufweisen. Das bedeutet, es würde sehr gut auf den Trainingsdaten performen, aber schlecht auf neuen, unbekannten Daten.</p>
+                <p>
+                  Bei Underfitting ist die Variance oft 
+                  niedrig, da das Modell nicht empfindlich genug ist, um auf die Nuancen in den Trainingsdaten zu reagieren. Ein underfitted Modell neigt dazu, 
+                  die Daten zu vereinfachen und ignoriert oft die feineren Details oder Muster. In diesem Beispiel hat das einfache Modell eine niedrige Variance, 
+                  da es nicht auf die spezifischen Nuancen der Trainingsdaten reagiert und tendenziell eine konsistente, aber ungenaue Vorhersage über verschiedene Datensätze hinweg liefert.
+                </p>
 
               </div>
             </div>
