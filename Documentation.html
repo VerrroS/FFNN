@@ -3,6 +3,7 @@
     <head>
         <!-- add style sheet -->
         <link rel="stylesheet" href="style.css">
+        <link href="prism.css" rel="stylesheet">
     </head>
     <body>
         <main class="index">
@@ -20,29 +21,103 @@
             </header>
           </div> 
         <div class="content">
-            <p>Interaktive Visualisierung eines Fast-Forward-Neuronalen-Netzwerks. Nutzen Sie die Web-App <a href="https://ffnn.veronikasimmering.de/">https://ffnn.veronikasimmering.de/</a> und trainieren Sie Ihr eigenes FFNN basierend auf den gegebenen Trainingsdaten und Modellparametern.</p>
-            <p>Die Parameter, die Sie festlegen können, sind:</p>
+            <p>Interaktive Visualisierung eines Fast-Forward-Neuronalen-Netzwerks. Nutzen Sie die Web-App <a href="https://ffnn.veronikasimmering.de/">https://ffnn.veronikasimmering.de/</a> 
+            und trainieren Sie Ihr eigenes FFNN basierend auf den gegebenen Trainingsdaten und Modellparametern. <br>
+            Die Parameter, die Sie festlegen können, sind:</p>
             <ul>
+                <li>Anzahl der versteckten Schichten</li>
+                <li>Anzahl der Neuronen pro Schicht</li>
                 <li>Aktivierungsfunktion</li>
                 <li>Lernrate</li>
                 <li>Optimizer</li>
                 <li>Batchgröße</li>
                 <li>Trainings-Epochen</li>
             </ul>
-
+            <p>Außerdem kann die Anzahl der Trainingsdaten sowie deren Rauschen festgelegt werden. Die Trainingsdaten beruhen auf der Funktion y(x) = (x+0.8)*(x-0.2)*(x-0.3)*(x-0.6) im Wertebereich [-1,+1].</p>
             <h2>Frameworks:</h2>
             <ul>
-                <li><a href="https://plotly.com/">Plotly</a></li>
-                <li><a href="https://www.tensorflow.org/">Tensorflow.js</a></li>
+                <li><a href="https://plotly.com/">Plotly</a><br><p>Plotly wird verwendet, um die Trainings- und Vorhersagedaten interaktiv zu visualisieren.</p></li>
+                <li><a href="https://js.tensorflow.org/api_vis/1.5.1/">TenorFlow.js Vis</a><br><p>Die TensorFlow.js Vis API ermöglicht die Darstellung des Trainingsverlaufs Ihres Modells.</p></li>
+                <li><a href="https://www.tensorflow.org/">Tensorflow.js</a><br><p>TensorFlow.js wird verwendet, um das FFNN-Modell zu erstellen und zu trainieren.</p></li>
             </ul>
+            <h2>Definition des Models</h2>
+            <p>Die Model-Klasse spielt eine zentrale Rolle bei der Konfiguration Ihres FFNN-Modells. Hier werden alle relevanten Parameter festgelegt, und ein Modell wird erstellt. 
+              Mit der Methode trainModel(inputs, labels) wird das model trainiert.</p>
+            <pre>
+              <code class="language-javascript">
+                class Model{
+                  constructor(){
+                    this.hiddenLayers = parseInt(document.getElementById('hiddenLayers').value);
+                    this.neuronsPerLayer = parseInt(document.getElementById('neurons').value);
+                    this.activationFunction = document.getElementById('aktivierungsfunktionInput').value;
+                    this.optimizer = document.getElementById('optimizerInput').value;
+                    this.learningRate = parseFloat(document.getElementById('learningRateInput').value);
+                    this.batchSize = parseInt(document.getElementById('batchSizeInput').value);
+                    this.epochs = parseInt(document.getElementById('epochsInput').value);
+                    this.model = this.createModel();
+                  }
+                
+                  createModel(){
+                    const model = tf.sequential();
+                    model.add(tf.layers.dense({inputShape: [1], units: this.neuronsPerLayer, useBias: true}));
+                    for (let i = 0; i < this.numHiddenLayers; i++) {
+                        model.add(tf.layers.dense({units: this.neuronsPerLayer, activation: this.activationFunction, useBias: true}));
+                    }
+                    model.add(tf.layers.dense({units: 1, useBias: true}));
+                    return model;
+                  }
+                
+                  async compile(){
+                    this.model.compile({
+                      optimizer: this.optimizer,
+                      loss: tf.losses.meanSquaredError,
+                      metrics: ['mse', 'accuracy'],
+                    });
+                  }
+                
+                  async trainModel(inputs, labels){
+                    return this.model.fit(inputs, labels, {
+                      batchSize: this.batchSize,
+                      epochs: this.epochs,
+                      shuffle: true,
+                      callbacks: tfvis.show.fitCallbacks(
+                        { name: 'Training Performance' },
+                        ['loss', 'mse'],
+                        { height: 200, callbacks: ['onEpochEnd'] }
+                      )
+                    });
+                  }
+                
+              </code>
+            </pre>
+
+            <h2>Modelltest</h2>
+            <p>Das Modell wurde empirisch getestet. Dabei wurden ein Under-Fitting-Modell, ein Over-Fitting-Modell und ein Best-Fitting-Modell definiert. 
+              Sie und ihre Parameter können im Testbereich der Webanwendung eingesehen werden. Mit der Funktion testModel(model) werden die Trainingsdaten, die unverrauschten Daten und die 
+            Vorhergesagten Daten angezeigt</p>
+            <pre>
+              <code class="language-javascript">
+                function testModel(model, data) {
+                  const tensorData = convertToTensor(data);
+                  const {inputMax, inputMin, labelMin, labelMax} = tensorData;
+                  const predictedPoints = generatePredictions(model, inputMax, inputMin, labelMax, labelMin);
+                  const originalPoints = data.map(d => ({
+                    x: d.x, y: d.y,
+                  }));
+                  const { unverrauschteXs, unverrauschteYs } = generateCleanData();
+                  scatterPlot(originalPoints, predictedPoints, unverrauschteXs, unverrauschteYs);
+                }
+                
+              </code>
+            </pre>
 
             <h2>Ressourcen</h2>
             <ul>
-                <li><a href="https://www.tensorflow.org/js/tutorials/training/linear_regression">Tenorflow Linear Regression Tutorial</a></li>
+                <li><a href="https://www.tensorflow.org/js/tutorials/training/linear_regression">TensorFlow Linear Regression Tutorial</a></li>
+                <li><a href="https://www.youtube.com/watch?v=EuBBz3bI-aA&list=PLiSxV9-aJz9YJRuINsNhnXLh-L8CM6OL_&index=14&ab_channel=StatQuestwithJoshStarmer">Bias und Variance erklärt</a></li>
             </ul>
-
-            <h2>Modelltest</h2>
-            <p>Das Modell wurde empirisch getestet. Dabei wurden ein Under-Fitting-Modell, ein Over-Fitting-Modell und ein Best-Fitting-Modell definiert. Sie und ihre Parameter können im Testbereich der Webanwendung eingesehen werden.</p>
           </main>
+          <script src="prism.js"></script>
+	      
     </body>
 </html>

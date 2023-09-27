@@ -1,35 +1,16 @@
 
-async function runFFNN(){
-  data = generateData();
-    const values = data.map(d => ({
-        x: d.x,
-        y: d.y,
-    }));
-
-    tfvis.render.scatterplot(
-        {name: 'xValues v yValues'},
-        {values},
-        {
-          xLabel: 'xValues',
-          yLabel: 'yValues',
-          height: 300
-        }
-      );
-    const hiddenLayers = parseInt(document.getElementById('hiddenLayers').value);
-    const neurons = parseInt(document.getElementById('neurons').value);
-    const model = createModel(hiddenLayers, neurons);
-    tfvis.show.modelSummary({name: 'Model Summary'}, model);
-
-    // Convert the data to a form we can use for training.
+async function runFFNN(data, trainedModel){
+    const values = generateData();
+    visualizeData(values);
+    //tfvis.show.modelSummary({name: 'Model Summary'}, trainedModel);
     tensorData = convertToTensor(data);
     const {inputs, labels} = tensorData;
-
-    // Train the model
-    await trainModel(model, inputs, labels);
-    saveModelToServer(model);
+    await trainedModel.compile();
+    await trainedModel.trainModel(inputs, labels);
+    //saveModelToServer(model);
     // Make some predictions using the model and compare them to the
     // original data
-    testModel(model, data);
+    testModel(trainedModel, data);
     for (let i = 0; i < modelButtons.length; i++) {
         modelButtons[i].classList.remove('selected');
     }
@@ -38,20 +19,35 @@ async function runFFNN(){
 }
 
 
+function visualizeData(values) {
+  tfvis.render.scatterplot(
+    { name: 'xValues v yValues' },
+    { values },
+    {
+      xLabel: 'xValues',
+      yLabel: 'yValues',
+      height: 300
+    }
+  );
+}
+
+function generateData() {
+  data = generateData();
+  const values = data.map(d => ({
+    x: d.x,
+    y: d.y,
+  }));
+  return values;
+}
+
 function createModel(numHiddenLayers, neuronsPerLayer) {
   const activationFunction = document.getElementById('aktivierungsfunktionInput').value;
   const model = tf.sequential();
-  // Eingabeschicht
   model.add(tf.layers.dense({inputShape: [1], units: neuronsPerLayer, useBias: true}));
-
-  // Versteckte Schichten
   for (let i = 0; i < numHiddenLayers; i++) {
       model.add(tf.layers.dense({units: neuronsPerLayer, activation: activationFunction, useBias: true}));
   }
-
-  // Ausgabeschicht
   model.add(tf.layers.dense({units: 1, useBias: true}));
-
   return model;
 }
 
@@ -84,13 +80,7 @@ function getOptimizer() {
 
 
 async function trainModel(model, inputs, labels) {
-  const optimizer = getOptimizer();
-
-  model.compile({
-    optimizer: optimizer,
-    loss: tf.losses.meanSquaredError,
-    metrics: ['mse', 'accuracy'],
-  });
+  model.compile();
 
   const batchSize = parseInt(document.getElementById('batchSizeInput').value);
   const epochs = parseInt(document.getElementById('epochsInput').value);
@@ -110,36 +100,15 @@ async function trainModel(model, inputs, labels) {
 function testModel(model, data) {
   const tensorData = convertToTensor(data);
   const {inputMax, inputMin, labelMin, labelMax} = tensorData;
-
-  // Generate predictions for a uniform range of numbers between 0 and 1;
-  const [xs, preds] = tf.tidy(() => {
-    const xsNorm = tf.linspace(0, 1, 100);
-    const predictions = model.predict(xsNorm.reshape([100, 1]));
-
-    const unNormXs = xsNorm
-      .mul(inputMax.sub(inputMin))
-      .add(inputMin);
-
-    const unNormPreds = predictions
-      .mul(labelMax.sub(labelMin))
-      .add(labelMin);
-
-    return [unNormXs.dataSync(), unNormPreds.dataSync()];
-  });
-
-  const predictedPoints = Array.from(xs).map((val, i) => {
-    return {x: val, y: preds[i]}
-  });
-
+  const predictedPoints = generatePredictions(model, inputMax, inputMin, labelMax, labelMin);
   const originalPoints = data.map(d => ({
     x: d.x, y: d.y,
   }));
+  const { unverrauschteXs, unverrauschteYs } = generateCleanData();
+  scatterPlot(originalPoints, predictedPoints, unverrauschteXs, unverrauschteYs);
+}
 
-  // Daten für die unverrauschte Funktion generieren
-  const unverrauschteXs = tf.linspace(-1, 1, 100).dataSync();
-  const unverrauschteYs = unverrauschteXs.map(x => (x+0.8)*(x-0.2)*(x-0.3)*(x-0.6));
-
-  // Daten für das Scatterplot vorbereiten
+function scatterPlot(originalPoints, predictedPoints, unverrauschteXs, unverrauschteYs) {
   const originalTrace = {
     x: originalPoints.map(p => p.x),
     y: originalPoints.map(p => p.y),
@@ -164,13 +133,40 @@ function testModel(model, data) {
     name: 'Unverrauscht'
   };
 
-  // Scatterplot mit Plotly erstellen
   Plotly.newPlot('testPlot', [originalTrace, predictedTrace, unverrauschteTrace], {
     title: 'Model Predictions vs Original Data vs Unverrauschte Funktion',
     xaxis: { title: 'xValues' },
     yaxis: { title: 'yValues' },
     height: 500
   });
+}
+
+function generateCleanData() {
+  const unverrauschteXs = tf.linspace(-1, 1, 100).dataSync();
+  const unverrauschteYs = unverrauschteXs.map(x => (x + 0.8) * (x - 0.2) * (x - 0.3) * (x - 0.6));
+  return { unverrauschteXs, unverrauschteYs };
+}
+
+function generatePredictions(model, inputMax, inputMin, labelMax, labelMin) {
+  const [xs, preds] = tf.tidy(() => {
+    const xsNorm = tf.linspace(0, 1, 100);
+    const predictions = model.predict(xsNorm.reshape([100, 1]));
+
+    const unNormXs = xsNorm
+      .mul(inputMax.sub(inputMin))
+      .add(inputMin);
+
+    const unNormPreds = predictions
+      .mul(labelMax.sub(labelMin))
+      .add(labelMin);
+
+    return [unNormXs.dataSync(), unNormPreds.dataSync()];
+  });
+
+  const predictedPoints = Array.from(xs).map((val, i) => {
+    return { x: val, y: preds[i] };
+  });
+  return predictedPoints;
 }
 
   async function getCurrentModel(switchCase){
@@ -217,28 +213,18 @@ function testCurrentModel(e){
   });
 }
 
-
 function initializeModel() {
-  const numHiddenLayers = parseInt(document.getElementById('hiddenLayers').value);
-  const neuronsPerLayer = parseInt(document.getElementById('neurons').value);
-  const model = createModel(numHiddenLayers, neuronsPerLayer);
-  trainedModel = model;
-  currentModel = model;
+  const trainedModel = new Model();
+  currentModel = trainedModel;
   meinModellButton.disabled = false;
   data = generateData();
-  runFFNN(data);
+  runFFNN(data, currentModel);
 }
 
-
 async function saveModelToServer(model) {
-  // save model
   const saveResult = await model.save('downloads://my-model');
-
-  // save generated data in json file
   const dataJson = JSON.stringify(data);
   saveToFile(dataJson, "data.json");
-
-  // save parameters in json file
   const parameters = {
       hiddenLayers: parseInt(document.getElementById('hiddenLayers').value),
       neuronsPerLayer: parseInt(document.getElementById('neurons').value),
@@ -256,7 +242,6 @@ async function saveModelToServer(model) {
 
 function saveToFile(jsonData, filename) {
   const blob = new Blob([jsonData], {type: "application/json"});
-  // Für IE und Edge
   if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, filename);
   } else {
@@ -268,5 +253,53 @@ function saveToFile(jsonData, filename) {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+  }
+}
+
+class Model{
+  constructor(){
+    this.hiddenLayers = parseInt(document.getElementById('hiddenLayers').value);
+    this.neuronsPerLayer = parseInt(document.getElementById('neurons').value);
+    this.activationFunction = document.getElementById('aktivierungsfunktionInput').value;
+    this.optimizer = document.getElementById('optimizerInput').value;
+    this.learningRate = parseFloat(document.getElementById('learningRateInput').value);
+    this.batchSize = parseInt(document.getElementById('batchSizeInput').value);
+    this.epochs = parseInt(document.getElementById('epochsInput').value);
+    this.model = this.createModel();
+  }
+
+  createModel(){
+    const model = tf.sequential();
+    model.add(tf.layers.dense({inputShape: [1], units: this.neuronsPerLayer, useBias: true}));
+    for (let i = 0; i < this.numHiddenLayers; i++) {
+        model.add(tf.layers.dense({units: this.neuronsPerLayer, activation: this.activationFunction, useBias: true}));
+    }
+    model.add(tf.layers.dense({units: 1, useBias: true}));
+    return model;
+  }
+
+  async compile(){
+    this.model.compile({
+      optimizer: this.optimizer,
+      loss: tf.losses.meanSquaredError,
+      metrics: ['mse', 'accuracy'],
+    });
+  }
+
+  async trainModel(inputs, labels){
+    return this.model.fit(inputs, labels, {
+      batchSize: this.batchSize,
+      epochs: this.epochs,
+      shuffle: true,
+      callbacks: tfvis.show.fitCallbacks(
+        { name: 'Training Performance' },
+        ['loss', 'mse'],
+        { height: 200, callbacks: ['onEpochEnd'] }
+      )
+    });
+  }
+
+  predict(input){
+    return this.model.predict(input);
   }
 }
