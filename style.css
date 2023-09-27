@@ -1,7 +1,7 @@
 body{
     color:#000;
     text-align:left;
-    font:400 16px Inter,sans-serif;
+    font:400 18px Inter,sans-serif;
     position:relative
 }
 
@@ -19,6 +19,7 @@ body{
   position:relative;
   overflow:hidden
 }
+
 .nav-nav-header{
   padding:34px 32px 34px 32px;
   display:flex;
@@ -27,7 +28,7 @@ body{
   align-items:center;
   justify-content:center;
   flex-shrink:0;
-  width:1512px;
+  width:100%;
   position:relative
 }
 .title{
@@ -47,7 +48,9 @@ h1{
   align-self:stretch;
   height:34px
 }
+
 button{
+  font:400 18px Inter,sans-serif;
   background:#7198ff;
   border-radius:7px!important;
   padding:8px 45px 8px 45px;
@@ -66,8 +69,15 @@ button{
 }
 
 a{
-  text-decoration:none!important
+  text-decoration:none!important;
+  color:blue;
 }
+
+li p {
+  font-weight: normal;
+  margin: 5px;
+}
+
 button:disabled{
   background:#c5d5ff
 }
@@ -83,17 +93,7 @@ button:disabled{
   flex-shrink:0;
   position:relative
 }
-.title2{
-  padding:10px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items:flex-start;
-  justify-content:flex-start;
-  flex-shrink:0;
-  width:100%;
-  position:relative
-}
+
 .heading-5{
   flex-shrink:0;
   width:1500px;
@@ -154,6 +154,7 @@ button:disabled{
 #info-box{
   max-width: 700px;
   transition: all 0.5s ease;
+  margin-left: 15px;
 }
 .flex{
   display:flex;
@@ -295,7 +296,7 @@ select{
 h2{
   color:#000;
   text-align:left;
-  font:400 24px Inter,sans-serif;
+  font:bold 24px Inter,sans-serif;
   position:relative
 }
 .text-heading-22{
@@ -319,4 +320,36 @@ h2{
 }
 .info{
   display:none;
+}
+
+@media (max-width: 768px) {
+  textarea {
+    font-size: 50px;
+    line-height: 60px;
+  }
+
+  #slider-value {
+    font-size: 15px;
+  }
+  .content{
+    max-width: 90vw;
+  }
+}
+
+@media (min-width: 1441px) {
+  .content{
+    max-width: 60vw;
+  }
+}
+
+@media (min-width: 1921px) {
+  .content{
+    max-width: 40vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .content{
+    max-width: 100%;
+  }
 }
